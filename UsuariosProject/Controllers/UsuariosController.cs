@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,10 @@ namespace UsuariosProject.Controllers
             {
                 var usuario = _cadastrosContext.Usuario.Find(id);
 
-                if (usuario != null)
+                if (usuario == null)
                     return new BadRequestObjectResult("Usuário não encontrado!");
                 else
-                  return new ObjectResult(usuario);
+                  return new ObjectResult(JsonConvert.SerializeObject(usuario));
 
             }
             catch (Exception e)
@@ -45,8 +46,9 @@ namespace UsuariosProject.Controllers
             try
             {
                 var usuarios = _cadastrosContext.Usuario.Where(x => x.Ativo == ativo).ToList();
+                
 
-                return new ObjectResult(usuarios);
+                return new ObjectResult(JsonConvert.SerializeObject(usuarios));
             }
             catch (Exception e)
             {
@@ -60,9 +62,10 @@ namespace UsuariosProject.Controllers
         {
             try
             {
+
                 var usuarios = _cadastrosContext.Usuario.Where(x => x.Nome.Contains(nome) && x.Ativo == ativo).ToList();
 
-                return new ObjectResult(usuarios);
+                return new ObjectResult(JsonConvert.SerializeObject(usuarios));
 
             }
             catch (Exception e)
@@ -76,6 +79,7 @@ namespace UsuariosProject.Controllers
         {
             try
             {
+                usuario.Ativo = true;
                 _cadastrosContext.Usuario.Add(usuario);
                 _cadastrosContext.SaveChanges();
 

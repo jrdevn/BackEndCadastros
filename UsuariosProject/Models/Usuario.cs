@@ -14,7 +14,5 @@ namespace UsuariosProject.Models
         public virtual string Senha { get; set; }
         public virtual bool Ativo { get; set; }
         public virtual int SexoId { get; set; }
-
-
     }
 }
