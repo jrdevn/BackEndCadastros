@@ -23,7 +23,7 @@ namespace UsuariosProject.Controllers
         {
             try
             {
-                var generos = _cadastrosContext.Sexo.ToList();
+                var generos = _cadastrosContext.Sexo.OrderBy(x => x.Descricao).ToList();
 
                 return new ObjectResult(JsonConvert.SerializeObject(generos));
             }

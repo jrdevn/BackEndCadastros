@@ -45,7 +45,7 @@ namespace UsuariosProject.Controllers
         {
             try
             {
-                var usuarios = _cadastrosContext.Usuario.Where(x => x.Ativo == ativo).ToList();
+                var usuarios = _cadastrosContext.Usuario.Where(x => x.Ativo == ativo).OrderBy(x => x.Nome).ToList();
                 
 
                 return new ObjectResult(JsonConvert.SerializeObject(usuarios));
@@ -63,7 +63,8 @@ namespace UsuariosProject.Controllers
             try
             {
 
-                var usuarios = _cadastrosContext.Usuario.Where(x => x.Nome.Contains(nome) && x.Ativo == ativo).ToList();
+                var usuarios = _cadastrosContext.Usuario.Where(x => x.Nome.Contains(nome) && x.Ativo == ativo).
+                                                         OrderBy( x => x.Nome).ToList();
 
                 return new ObjectResult(JsonConvert.SerializeObject(usuarios));
 
